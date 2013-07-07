@@ -69,12 +69,12 @@ class Aabb2 {
     o._max.setFrom(_max);
   }
 
-  Aabb2 transform(Matrix2 T) {
+  Aabb2 transform(Matrix3 T) {
     Vector2 center = new Vector2.zero();
     Vector2 halfExtents = new Vector2.zero();
     copyCenterAndHalfExtents(center, halfExtents);
-    T.transform(center);
-    T.absolute().transform(halfExtents);
+    T.transform2(center);
+    T.absoluteRotate2(halfExtents);
     _min.setFrom(center);
     _max.setFrom(center);
 
@@ -83,11 +83,11 @@ class Aabb2 {
     return this;
   }
 
-  Aabb2 rotate(Matrix2 T) {
+  Aabb2 rotate(Matrix3 T) {
     Vector2 center = new Vector2.zero();
     Vector2 halfExtents = new Vector2.zero();
     copyCenterAndHalfExtents(center, halfExtents);
-    T.absolute().transform(halfExtents);
+    T.absoluteRotate2(halfExtents);
     _min.setFrom(center);
     _max.setFrom(center);
 
@@ -96,12 +96,12 @@ class Aabb2 {
     return this;
   }
 
-  Aabb2 transformed(Matrix2 T, Aabb2 out) {
+  Aabb2 transformed(Matrix3 T, Aabb2 out) {
     out.copyFrom(this);
     return out.transform(T);
   }
 
-  Aabb2 rotated(Matrix2 T, Aabb2 out) {
+  Aabb2 rotated(Matrix3 T, Aabb2 out) {
     out.copyFrom(this);
     return out.rotate(T);
   }
